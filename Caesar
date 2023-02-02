@@ -1,0 +1,76 @@
+eng_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+rus_lower_alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
+rus_upper_alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+
+def decode(code_text, key):
+    decode_text = ''
+    for i in code_text:
+        if i in eng_lower_alphabet:
+            if ord(i) - key in range(ord(eng_lower_alphabet[0]), ord(eng_lower_alphabet[-1])):
+                decode_text += chr(ord(i) - key)
+            else:
+                decode_text += chr((ord(i) - key) + len(eng_lower_alphabet))
+        if i in eng_upper_alphabet:
+            if ord(i) - key in range(ord(eng_upper_alphabet[0]), ord(eng_upper_alphabet[-1])):
+                decode_text += chr(ord(i) - key)
+            else:
+                decode_text += chr((ord(i) - key) + len(eng_upper_alphabet))  
+        if i in rus_lower_alphabet:
+            if ord(i) - key in range(ord(rus_lower_alphabet[0]), ord(rus_lower_alphabet[-1])):
+                decode_text += chr(ord(i) - key)
+            else:
+                decode_text += chr((ord(i) - key) + len(rus_lower_alphabet))
+        if i in rus_upper_alphabet:
+            if ord(i) - key in range(ord(rus_upper_alphabet[0]), ord(rus_upper_alphabet[-1])):
+                decode_text += chr(ord(i) - key)
+            else:
+                decode_text += chr((ord(i) - key) + len(rus_upper_alphabet))
+        if i.isalpha() == False:
+            decode_text += i
+    return decode_text
+
+
+
+def code(input_text, key):
+    code_text = ''
+    for i in input_text:
+        if i in eng_lower_alphabet:
+            if ord(i) + key in range(ord(eng_lower_alphabet[0]), ord(eng_lower_alphabet[-1])):
+                code_text += chr(ord(i) + key)
+            else:
+                code_text += chr((ord(i) + key) - len(eng_lower_alphabet))
+        if i in eng_upper_alphabet:
+            if ord(i) + key in range(ord(eng_upper_alphabet[0]), ord(eng_upper_alphabet[-1])):
+                code_text += chr(ord(i) + key)
+            else:
+                code_text += chr((ord(i) + key) - len(eng_upper_alphabet))  
+        if i in rus_lower_alphabet:
+            if ord(i) + key in range(ord(rus_lower_alphabet[0]), ord(rus_lower_alphabet[-1])):
+                code_text += chr(ord(i) + key)
+            else:
+                code_text += chr((ord(i) + key) - len(rus_lower_alphabet))
+        if i in rus_upper_alphabet:
+            if ord(i) + key in range(ord(rus_upper_alphabet[0]), ord(rus_upper_alphabet[-1])):
+                code_text += chr(ord(i) + key)
+            else:
+                code_text += chr((ord(i) + key) - len(rus_upper_alphabet))
+        if i.isalpha() == False:
+            code_text += i
+                
+    return code_text
+
+print('Шифратор/Дешифратор Цезаря')
+print('Нужно выбрать, что будет делать программа')
+
+user_choise = input('Введите "1" - для Шифрования или "2" - для Дешифровать\n')
+if user_choise == '1':
+    type_program = code
+    print('Шифрование\n')
+else:
+    type_program = decode
+    print('Дешифрование\n')
+user_input = input('Введите текст\n')
+key = int(input('Введите ключ сдвига шифра\n'))
+
+print(type_program(user_input, key))
